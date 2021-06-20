@@ -1,0 +1,207 @@
+{
+  "stats": {
+    "suites": 4,
+    "tests": 3,
+    "passes": 3,
+    "pending": 0,
+    "failures": 0,
+    "start": "2021-06-20T16:35:10.685Z",
+    "end": "2021-06-20T16:35:17.391Z",
+    "duration": 6706,
+    "testsRegistered": 3,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "085fb00b-5eca-4fb7-b675-adb15089bed0",
+      "title": "",
+      "fullFile": "cypress/integration/picpay_challenge.spec.js",
+      "file": "cypress/integration/picpay_challenge.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "334d58f8-4bcf-4d5f-a9a0-368c3fa3ba64",
+          "title": "PicPay Challenge",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "4ff95110-5572-4d1e-af3a-09e475e61179",
+              "title": "User Creation",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "User Creation and List Validation",
+                  "fullTitle": "PicPay Challenge User Creation User Creation and List Validation",
+                  "timedOut": null,
+                  "duration": 3248,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "var firstName = faker.name.firstName();\nvar lastName = faker.name.lastName();\nname = firstName + \" \" + lastName;\nvar email = faker.internet.email();\ncy.create_user(token, name, email, gender, status).then(response => {\n  expect(response.status).to.eq(200);\n  expect(response.statusText).to.eq(\"OK\");\n  expect(response.body.data.email).to.eq(email);\n  expect(response.body.data.name).to.eq(name);\n  id = response.body.data.id;\n});\ncy.list_all_user_pagination();\ncy.list_all_user(token).then(response => {\n  response.body.data.reverse();\n  expect(response.body.data[0]).property('id').to.eq(id);\n  expect(response.body.data[0]).property('email').to.eq(email);\n  expect(response.body.data[0]).property('name').to.eq(name);\n});",
+                  "err": {},
+                  "uuid": "dbc4e20c-1fcc-4efc-a161-5c9f12ac5a00",
+                  "parentUUID": "4ff95110-5572-4d1e-af3a-09e475e61179",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "dbc4e20c-1fcc-4efc-a161-5c9f12ac5a00"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 3248,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "c4e3d45c-d4be-471f-90e4-2361cf16678b",
+              "title": "Change User",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Change User and List Validation",
+                  "fullTitle": "PicPay Challenge Change User Change User and List Validation",
+                  "timedOut": null,
+                  "duration": 1412,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "var name_edit = 'Edit Test';\ncy.edit_user(token, name_edit, id).then(response => {\n  expect(response.status).to.eq(200);\n  expect(response.statusText).to.eq(\"OK\");\n  expect(response.body.data.name).to.eq(name_edit);\n});\ncy.list_one_user(token, id).then(response => {\n  expect(response.status).to.eq(200);\n  expect(response.statusText).to.eq(\"OK\");\n  expect(response.body.data.name).to.eq(name_edit);\n  expect(response.body.data.id).to.eq(id);\n});",
+                  "err": {},
+                  "uuid": "2789d9c2-184e-48db-b26b-66cf662632b4",
+                  "parentUUID": "c4e3d45c-d4be-471f-90e4-2361cf16678b",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "2789d9c2-184e-48db-b26b-66cf662632b4"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 1412,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "44d60eea-7dcf-4be3-b37c-79c8db032f63",
+              "title": "Delete User",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Delete User and List Validation",
+                  "fullTitle": "PicPay Challenge Delete User Delete User and List Validation",
+                  "timedOut": null,
+                  "duration": 2008,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.del_user(token, id).then(response => {\n  expect(response.status).to.equal(200);\n  expect(response.body.code).to.equal(204);\n});\ncy.list_all_user_pagination();\ncy.list_all_user(token).then(response => {\n  expect(response.body.data[0]).property('id').not.eq(id);\n});",
+                  "err": {},
+                  "uuid": "7e7795e9-2a4b-4732-85c2-7395a70dc9f8",
+                  "parentUUID": "44d60eea-7dcf-4be3-b37c-79c8db032f63",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "7e7795e9-2a4b-4732-85c2-7395a70dc9f8"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 2008,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false
+      },
+      "version": "4.1.0"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "reportName": "Relatório",
+        "reportTitle": "Report Title Test",
+        "reportPageTitle": "Título da Página",
+        "takePassedScreenshot": true,
+        "clearOldScreenshots": true,
+        "shortScrFileNames": false,
+        "jsonReport": false,
+        "multiReport": false,
+        "timestamp": "mmddyyyy_HHMMss"
+      },
+      "version": "4.1.0"
+    }
+  }
+}
